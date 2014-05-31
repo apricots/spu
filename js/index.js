@@ -1,11 +1,18 @@
 
 
-var woodside = angular.module('woodside', []);
-woodside.controller('woodsideController', function ($scope, $http, $interval) {
+var woodside = angular.module('woodside', ["firebase"]);
+woodside.controller('woodsideController', function ($scope, $http, $interval, $firebase) {
+	var usersReference = new Firebase("https://sushi-pay-us.firebaseio.com/users");
+	var salesReference = new Firebase("https://sushi-pay-us.firebaseio.com/sales");
+	var groupsReference = new Firebase("https://sushi-pay-us.firebaseio.com/groups");
+
+	$scope.users = $firebase(usersReference);
+	$scope.sales = $firebase(salesReference);
+	$scope.groups = $firebase(groupsReference);
+
 	$scope.user = {
 		name: {
 			first: "Adam",
-			middle: "K",
 			last: "Chew"
 		},
 		picture: {
@@ -14,38 +21,34 @@ woodside.controller('woodsideController', function ($scope, $http, $interval) {
 		balance: 1000
 	};
 
-	$scope.sales = [];
-
-	sale = {
+	$scope.sale = {
 		name: "Coffee",
-		original: 1000,
-		balance: 900,
-		sales: [],
+		total: 1000,
 		users: []
 	};
 
-	$scope.sales.push(sale);
+	$scope.group = {
+		name: "Group 1",
+		users: []
+	}
+
 
 	$scope.friends = [];
 
-	$scope.friends.push($scope.user);
-	$scope.friends.push($scope.user);
-	$scope.friends.push($scope.user);
-	$scope.friends.push($scope.user);
+	function addSale() {
+		$scope.sales.$add($scope.sale);
+	}
 
-	console.log($scope.friends);
+	function addUser() {
+		$scope.users.$add($scope.user);
+	}
 
-
-	$scope.addSale = function() {
-
-
-		$scope.sales.push($scope.newSale);
+	function addGroup() {
+		$scope.groups.$add($scope.group);
 	}
 
 	function generateDouble(max) {
 		return ((Math.random() * max) + 1);
 	}
-
-
 
 });
