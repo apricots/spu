@@ -10,9 +10,9 @@
 	<div class="new-sale">
 		<div class="panel-container">
 			<div class="panel">
-				<span class="half">Equal amount owed $</span>
+				<span class="half">Total Amount</span>
 				<span class="half">
-					<input type="text" ng-model="newSale.original" placeholder="Total"/>
+					<input type="text" ng-model="newSale.original" placeholder="$"/>
 				</span>
 
 				<span class="user">{{user.name.first}} {{user.name.last}}</span>
@@ -20,6 +20,7 @@
 		</div>
 	</div>
 
+<!-- Grey thing -->
 	<div class="sales" ng-repeat="sale in sales">
 		<div class="panel-container">
 			<div class="panel">
